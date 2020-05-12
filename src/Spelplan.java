@@ -23,7 +23,6 @@ public class Spelplan extends Canvas{
     private JFrame frame;
     private BufferedImage image;
 
-    private Spelplan w;
 
     public Spelplan(int w, int h) {
         this.width = w;
@@ -51,13 +50,13 @@ public class Spelplan extends Canvas{
         bs.show();
     }
     private void update() {
-        for (int y = 0 ; y < w.getHeight() ; y++) {
-            for (int x = 0; x < w.getWidth(); x++) {
-                pixels[y*w.getWidth()+x] = ((w.Spelplan(x,y)?0x000000:0xFFFFFF));
+        for (int y = 0 ; y < getHeight() ; y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                pixels[y*getWidth()+x] = ((spelplan[y*getWidth()+x]==0 ?0x000000:0xFFFFFF));
             }
         }
     }
-    
+
     public void run() {
         long startTime = System.currentTimeMillis();
         long lastUpdate = startTime;
@@ -67,7 +66,7 @@ public class Spelplan extends Canvas{
                 draw();
                 frame.setTitle("Spelplan s " + (System.currentTimeMillis()-startTime)/1000 + "s, " + i + " iterations");
                 i++;
-                w.update();
+                update();
                 lastUpdate = System.currentTimeMillis();
             }
         }
