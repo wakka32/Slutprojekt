@@ -20,7 +20,7 @@ public class Spelplan extends Canvas{
     }
     private int[] pixels;
     private int scale = 4;
-    private JFrame frame;
+    JFrame frame;
     private BufferedImage image;
 
 
@@ -81,7 +81,10 @@ public class Spelplan extends Canvas{
                 s.frame.setLocationRelativeTo(null);
                 s.frame.setVisible(true);
                 s.run();
+                // här gjorde jag spelplanen
 
 
 }
+
+
 }
