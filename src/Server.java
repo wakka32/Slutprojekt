@@ -57,6 +57,7 @@ public class Server {
             }
         } catch (Exception e) {
             System.out.println("Server fail");
+            // Detta är min nätverkdel tillsammans med client.java
 
         }
     }

@@ -47,5 +47,6 @@ public class Client {
         } catch (Exception e) {
             System.out.println("Client failed to communicate");
         }
+        // Detta är min nätverkdel tillsammans med server.java
     }
 }
