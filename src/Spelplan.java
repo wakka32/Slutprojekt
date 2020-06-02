@@ -32,6 +32,8 @@ public class Spelplan extends Canvas{
     public Spelplan(int w, int h, PrintWriter out, BufferedReader in) {
         this.width = w;
         this.height = h;
+        this.out = out;
+        this.in = in;
         spelplan = new int [w*h];
         image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();

@@ -58,9 +58,6 @@ public class Server {
                 System.out.println("Sending feedback");
                 out.println("SERVER: Welcome " + name + "! Keep up the good work");
 
-                in.close();
-                out.close();
-                socket.close();
                 s.run();
 
                 System.out.println("Closing down " + name);
