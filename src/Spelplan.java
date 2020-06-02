@@ -3,11 +3,16 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Spelplan extends Canvas{
     private int [] spelplan;
     private int width;
     private int height;
+    PrintWriter out;
+    BufferedReader in;
 
 
 
@@ -24,7 +29,7 @@ public class Spelplan extends Canvas{
     private BufferedImage image;
 
 
-    public Spelplan(int w, int h) {
+    public Spelplan(int w, int h, PrintWriter out, BufferedReader in) {
         this.width = w;
         this.height = h;
         spelplan = new int [w*h];
@@ -39,6 +44,7 @@ public class Spelplan extends Canvas{
         if (bs == null) {
             createBufferStrategy(3);
             return;
+
         }
 
         update();
@@ -48,6 +54,15 @@ public class Spelplan extends Canvas{
         //g.setRGB(0, 0, width, height, pixels,0,width);
         g.dispose();
         bs.show();
+        out.println(JOptionPane.showInputDialog(null,"Välj koordinat",""));
+
+        String msg = null;
+        try {
+            msg = in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(null,msg,"Server said",JOptionPane.INFORMATION_MESSAGE);
     }
     private void update() {
         for (int y = 0 ; y < getHeight() ; y++) {
@@ -73,8 +88,8 @@ public class Spelplan extends Canvas{
     }
 
 
-    public static void main (String[] args) {
-                Spelplan s = new Spelplan(10,10);
+    /*public static void main (String[] args) {
+                Spelplan s = new Spelplan(10,10, out, in);
                 s.frame.add(s);
                 s.frame.pack();
                 s.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +99,7 @@ public class Spelplan extends Canvas{
                 // här gjorde jag spelplanen
 
 
-}
+}*/
 
 
 }

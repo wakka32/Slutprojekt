@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -10,28 +11,37 @@ import java.net.Socket;
  * @author magnus
  */
 public class Server {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int port = 1234;
         ServerSocket serverSocket;
-        Socket socket;
+        Socket socket = null;
         System.out.println("Server started.");
-            Spelplan s = new Spelplan(10,10);
+        PrintWriter out = null;
+        BufferedReader in = null;
+
+
+        try {
+            serverSocket = new ServerSocket(port);
+
+                System.out.println("Waiting for connections!");
+                socket = serverSocket.accept();
+                // Go
+                out = new PrintWriter(socket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        } catch (Exception e){}
+            Spelplan s = new Spelplan(10, 10, out, in);
             s.frame.add(s);
             s.frame.pack();
             s.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             s.frame.setLocationRelativeTo(null);
             s.frame.setVisible(true);
 
+
             // här gjorde jag spelplanen
 
-        try {
-            serverSocket = new ServerSocket(port);
-            while (true) {
-                System.out.println("Waiting for connections!");
-                socket = serverSocket.accept();
-                // Go
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            try {
+
                 System.out.println("Client connected!");
 
                 //Protocol
@@ -54,11 +64,11 @@ public class Server {
                 s.run();
 
                 System.out.println("Closing down " + name);
-            }
-        } catch (Exception e) {
-            System.out.println("Server fail");
-            // Detta är min nätverkdel tillsammans med client.java
 
+            } catch (Exception e) {
+                System.out.println("Server fail");
+                // Detta är min nätverkdel tillsammans med client.java
+
+            }
         }
     }
-}

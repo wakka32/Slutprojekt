@@ -14,14 +14,9 @@ public class Client {
         String ip = (String) JOptionPane.showInputDialog(null,"IP?","Connect to..",JOptionPane.QUESTION_MESSAGE);
         int port = Integer.parseInt(JOptionPane.showInputDialog(null,"Port?","Connect to..",JOptionPane.QUESTION_MESSAGE));       ;
         Socket socket = null;
-            Spelplan s = new Spelplan(10,10);
-            s.frame.add(s);
-            s.frame.pack();
-            s.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            s.frame.setLocationRelativeTo(null);
-            s.frame.setVisible(true);
-            s.run();
-            // här gjorde jag spelplanen
+        PrintWriter out = null;
+        BufferedReader in = null;
+
 
         try {
             socket = new Socket(ip,port);
@@ -32,13 +27,17 @@ public class Client {
 
         // GO
         try {
-            PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(),true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Spelplan s = new Spelplan(10,10, out, in);
+            s.frame.add(s);
+            s.frame.pack();
+            s.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            s.frame.setLocationRelativeTo(null);
+            s.frame.setVisible(true);
+            s.run();
+            // här gjorde jag spelplanen
 
-            out.println(JOptionPane.showInputDialog(null,"Välj koordinat",""));
-
-            String msg = in.readLine();
-            JOptionPane.showMessageDialog(null,msg,"Server said",JOptionPane.INFORMATION_MESSAGE);
 
             in.close();
             out.close();
